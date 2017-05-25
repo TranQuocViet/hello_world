@@ -19,7 +19,8 @@ defmodule HelloWorld.Mixfile do
   def application do
     [mod: {HelloWorld, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex]]
+                    :httpoison, :amqp, :json_web_token, :cors_plug, :quantum, :timex,
+                    :phoenix_ecto, :postgrex, :ecto]]
   end
 
   # Specifies which paths to compile per environment.
@@ -38,6 +39,15 @@ defmodule HelloWorld.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
+     {:ecto, "~> 2.0.0", override: true},
+     {:hackney, "~> 1.8.3", override: true},
+     {:httpoison, "~> 0.11.1"},
+     {:json_web_token, "~> 0.2.5"},
+     {:amqp_client, git: "https://github.com/dsrosario/amqp_client.git", branch: "erlang_otp_19", override: true},
+     {:amqp, "0.1.4", override: true},
+     {:cors_plug, "~> 1.1"},
+     {:quantum, ">= 1.9.1"},
+     {:timex, "~> 3.0"},
      {:exrm, "~> 1.0"}
    ]
   end
