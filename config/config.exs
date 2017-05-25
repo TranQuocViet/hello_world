@@ -8,7 +8,8 @@ use Mix.Config
 # General application configuration
 config :hello_world, HelloWorld.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "eHVJjdZ2T1G5eYw3dRO2vXNAQUFrgXOAJgAALwpxkHu34YoIodGt3r/Mw8bzu9Nx",
+  secret_key_base: System.get_env("SECRET_KEY_BASE"),
+  # secret_key_base: "eHVJjdZ2T1G5eYw3dRO2vXNAQUFrgXOAJgAALwpxkHu34YoIodGt3r/Mw8bzu9Nx",
   render_errors: [view: HelloWorld.ErrorView, accepts: ~w(html json)],
   pubsub: [name: HelloWorld.PubSub,
            adapter: Phoenix.PubSub.PG2]
