@@ -20,20 +20,20 @@ config :logger, :console,
 config :hackney,
   max_connections: 120
 # Configures cronjob
-config :quantum, hello_world: [
-    cron: [
-      update_post: [
-        schedule: "*/5 * * * *",
-        task: "HelloWorld.ScheduledTask.update_post",
-        nodes: [:'nonode@nohost']
-      ],
-      adjust_trust_hot: [
-        schedule: "@daily",
-        task: "HelloWorld.ScheduledTask.adjust_trust_hot",
-        nodes: [:'nonode@nohost']
-      ]
-    ]
-  ]
+# config :quantum, hello_world: [
+#     cron: [
+#       update_post: [
+#         schedule: "*/5 * * * *",
+#         task: "HelloWorld.ScheduledTask.update_post",
+#         nodes: [:'nonode@nohost']
+#       ],
+#       adjust_trust_hot: [
+#         schedule: "@daily",
+#         task: "HelloWorld.ScheduledTask.adjust_trust_hot",
+#         nodes: [:'nonode@nohost']
+#       ]
+#     ]
+#   ]
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
