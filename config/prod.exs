@@ -28,10 +28,10 @@ config :hello_world, ecto_repos: [
 
 config :hello_world, HelloWorld.Repo,
 adapter: Ecto.Adapters.Postgres,
-username: System.get_env("DB_USERNAME") || "sococial_web",
-password: System.get_env("DB_PASSWORD") || "pancake_social",
-database: System.get_env("DB_NAME") || "sococial_web",
-hostname: System.get_env("DB_MASTER") || "localhost",
+username: System.get_env("DB_USERNAME"),
+password: System.get_env("DB_PASSWORD"),
+database: System.get_env("DB_NAME"),
+hostname: System.get_env("DB_MASTER"),
 pool_size: 50
 
 # ## SSL Support
