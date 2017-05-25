@@ -1,4 +1,4 @@
-defmodule SocialWeb.UserController do
+defmodule HelloWorld.UserController do
 
   def function_name do
 
