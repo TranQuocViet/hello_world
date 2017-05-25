@@ -21,8 +21,6 @@ defmodule SocialWeb.Router do
 
   scope "/api", SocialWeb do
     pipe_through :api
-
-    # get "/", PageController, :index
     scope "/gggg" do
       get "/", TestController, :index
     end
