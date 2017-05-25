@@ -14,13 +14,22 @@ use Mix.Config
 config :hello_world, HelloWorld.Endpoint,
   http: [port: 8888],
   url: [host: "example.com", port: 80],
+  root: ".",
+  # cache_static_manifest: "priv/static/manifest.json",
+  server: true,
+  version: Mix.Project.config[:version],
   cache_static_manifest: "priv/static/manifest.json"
 
 # Do not print debug messages in production
 config :logger, level: :info
 
 config :hello_world, HelloWorld.Repo,
-  adapter: Ecto.Adapters.Postgres
+adapter: Ecto.Adapters.Postgres
+# username: System.get_env("DB_USERNAME") || "sococial_web",
+# password: System.get_env("DB_PASSWORD") || "pancake_social",
+# database: System.get_env("DB_NAME") || "sococial_web",
+# hostname: System.get_env("DB_MASTER") || "localhost",
+# pool_size: 50
 
 # ## SSL Support
 #

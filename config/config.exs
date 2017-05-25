@@ -6,8 +6,8 @@
 use Mix.Config
 
 # General application configuration
-config :hello_world,
-  ecto_repos: [HelloWorld.Repo]
+# config :hello_world,
+#   ecto_repos: [HelloWorld.Repo]
 
 # Configures the endpoint
 config :hello_world, HelloWorld.Endpoint,
