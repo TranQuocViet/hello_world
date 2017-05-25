@@ -13,12 +13,28 @@ defmodule HelloWorld.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", HelloWorld do
-    pipe_through :browser # Use the default browser stack
+  # scope "/", HelloWorld do
+  #   pipe_through :browser # Use the default browser stack
+  #
+  #   get "/", PageController, :index
+  # end
 
-    get "/", PageController, :index
+  scope "/api", HelloWorld do
+    pipe_through :api
+
+    # get "/", PageController, :index
+    scope "/gggg" do
+      get "/", TestController, :index
+    end
+
+    get "/login", UserLogin, :user_login
+    scope "/posts" do
+      get "/", PostController, :index
+      scope "/:tag_code" do
+        get "/", PostController, :get_post_by_tag
+      end
+    end
   end
-
   # Other scopes may use custom stacks.
   # scope "/api", HelloWorld do
   #   pipe_through :api
