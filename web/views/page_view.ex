@@ -1,3 +1,3 @@
-defmodule HelloWorld.PageView do
-  use HelloWorld.Web, :view
+defmodule SocialWeb.PageView do
+  use SocialWeb.Web, :view
 end

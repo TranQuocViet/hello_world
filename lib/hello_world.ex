@@ -1,4 +1,4 @@
-defmodule HelloWorld do
+defmodule SocialWeb do
   use Application
 
   # See http://elixir-lang.org/docs/stable/elixir/Application.html
@@ -9,24 +9,24 @@ defmodule HelloWorld do
     # Define workers and child supervisors to be supervised
     children = [
       # Start the Ecto repository
-      supervisor(HelloWorld.Repo, []),
+      supervisor(SocialWeb.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(HelloWorld.Endpoint, []),
-      # Start your own worker by calling: HelloWorld.Worker.start_link(arg1, arg2, arg3)
-      # worker(HelloWorld.Worker, [arg1, arg2, arg3]),
-      supervisor(HelloWorld.Consumer, []),
+      supervisor(SocialWeb.Endpoint, []),
+      # Start your own worker by calling: SocialWeb.Worker.start_link(arg1, arg2, arg3)
+      # worker(SocialWeb.Worker, [arg1, arg2, arg3]),
+      supervisor(SocialWeb.Consumer, []),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: HelloWorld.Supervisor]
+    opts = [strategy: :one_for_one, name: SocialWeb.Supervisor]
     Supervisor.start_link(children, opts)
   end
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
   def config_change(changed, _new, removed) do
-    HelloWorld.Endpoint.config_change(changed, removed)
+    SocialWeb.Endpoint.config_change(changed, removed)
     :ok
   end
 end

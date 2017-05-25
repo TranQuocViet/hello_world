@@ -1,4 +1,4 @@
-defmodule HelloWorld.Repo.Migrations.Posts do
+defmodule SocialWeb.Repo.Migrations.Posts do
   use Ecto.Migration
 
   def change do

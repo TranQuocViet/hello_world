@@ -1,4 +1,4 @@
-defmodule HelloWorld.ChannelCase do
+defmodule SocialWeb.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -20,22 +20,22 @@ defmodule HelloWorld.ChannelCase do
       # Import conveniences for testing with channels
       use Phoenix.ChannelTest
 
-      alias HelloWorld.Repo
+      alias SocialWeb.Repo
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
 
 
       # The default endpoint for testing
-      @endpoint HelloWorld.Endpoint
+      @endpoint SocialWeb.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(HelloWorld.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(SocialWeb.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(HelloWorld.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(SocialWeb.Repo, {:shared, self()})
     end
 
     :ok

@@ -1,8 +1,8 @@
-defmodule HelloWorld.Mixfile do
+defmodule SocialWeb.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :hello_world,
+    [app: :social_web,
      version: "0.0.1",
      elixir: "~> 1.2",
      elixirc_paths: elixirc_paths(Mix.env),
@@ -17,7 +17,7 @@ defmodule HelloWorld.Mixfile do
   #
   # Type `mix help compile.app` for more information.
   def application do
-    [mod: {HelloWorld, []},
+    [mod: {SocialWeb, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
                     :httpoison, :amqp, :json_web_token, :cors_plug, :quantum, :timex,
                     :phoenix_ecto, :postgrex, :ecto]]

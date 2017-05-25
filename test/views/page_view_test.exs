@@ -1,3 +1,3 @@
-defmodule HelloWorld.PageViewTest do
-  use HelloWorld.ConnCase, async: true
+defmodule SocialWeb.PageViewTest do
+  use SocialWeb.ConnCase, async: true
 end

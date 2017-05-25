@@ -1,4 +1,4 @@
-# HelloWorld
+# SocialWeb
 
 To start your Phoenix app:
 

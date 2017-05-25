@@ -1,6 +1,6 @@
-defmodule HelloWorld.ScheduledTask do
-  # use Quantum.Scheduler, otp_app: :hello_world
-  alias HelloWorld.{Tools, Repo, Post}
+defmodule SocialWeb.ScheduledTask do
+  # use Quantum.Scheduler, otp_app: :social_web
+  alias SocialWeb.{Tools, Repo, Post}
   # import Ecto.Query, only: [from: 2]
 
   def update_post do

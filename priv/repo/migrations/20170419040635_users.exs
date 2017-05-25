@@ -1,4 +1,4 @@
-defmodule HelloWorld.Repo.Migrations.Users do
+defmodule SocialWeb.Repo.Migrations.Users do
   use Ecto.Migration
 
   def change do

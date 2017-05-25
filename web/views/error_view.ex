@@ -1,5 +1,5 @@
-defmodule HelloWorld.ErrorView do
-  use HelloWorld.Web, :view
+defmodule SocialWeb.ErrorView do
+  use SocialWeb.Web, :view
 
   def render("404.html", _assigns) do
     "Page not found"

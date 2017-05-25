@@ -6,12 +6,12 @@
 use Mix.Config
 
 # General application configuration
-config :hello_world, HelloWorld.Endpoint,
+config :social_web, SocialWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: System.get_env("SECRET_KEY_BASE"),
   # secret_key_base: "eHVJjdZ2T1G5eYw3dRO2vXNAQUFrgXOAJgAALwpxkHu34YoIodGt3r/Mw8bzu9Nx",
-  render_errors: [view: HelloWorld.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: HelloWorld.PubSub,
+  render_errors: [view: SocialWeb.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: SocialWeb.PubSub,
            adapter: Phoenix.PubSub.PG2]
 # Configures Elixir's Logger
 config :logger, :console,
@@ -21,16 +21,16 @@ config :logger, :console,
 config :hackney,
   max_connections: 120
 # Configures cronjob
-config :quantum, hello_world: [
+config :quantum, social_web: [
     cron: [
       update_post: [
         schedule: "*/5 * * * *",
-        task: "HelloWorld.ScheduledTask.update_post",
+        task: "SocialWeb.ScheduledTask.update_post",
         nodes: [:'nonode@nohost']
       ],
       adjust_trust_hot: [
         schedule: "@daily",
-        task: "HelloWorld.ScheduledTask.adjust_trust_hot",
+        task: "SocialWeb.ScheduledTask.adjust_trust_hot",
         nodes: [:'nonode@nohost']
       ]
     ]

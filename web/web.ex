@@ -1,12 +1,12 @@
-defmodule HelloWorld.Web do
+defmodule SocialWeb.Web do
   @moduledoc """
   A module that keeps using definitions for controllers,
   views and so on.
 
   This can be used in your application as:
 
-      use HelloWorld.Web, :controller
-      use HelloWorld.Web, :view
+      use SocialWeb.Web, :controller
+      use SocialWeb.Web, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -30,12 +30,12 @@ defmodule HelloWorld.Web do
     quote do
       use Phoenix.Controller
 
-      alias HelloWorld.Repo
+      alias SocialWeb.Repo
       import Ecto
       import Ecto.Query
 
-      import HelloWorld.Router.Helpers
-      import HelloWorld.Gettext
+      import SocialWeb.Router.Helpers
+      import SocialWeb.Gettext
     end
   end
 
@@ -49,9 +49,9 @@ defmodule HelloWorld.Web do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import HelloWorld.Router.Helpers
-      import HelloWorld.ErrorHelpers
-      import HelloWorld.Gettext
+      import SocialWeb.Router.Helpers
+      import SocialWeb.ErrorHelpers
+      import SocialWeb.Gettext
     end
   end
 
@@ -65,10 +65,10 @@ defmodule HelloWorld.Web do
     quote do
       use Phoenix.Channel
 
-      alias HelloWorld.Repo
+      alias SocialWeb.Repo
       import Ecto
       import Ecto.Query
-      import HelloWorld.Gettext
+      import SocialWeb.Gettext
     end
   end
 

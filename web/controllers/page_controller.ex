@@ -1,5 +1,5 @@
-defmodule HelloWorld.PageController do
-  use HelloWorld.Web, :controller
+defmodule SocialWeb.PageController do
+  use SocialWeb.Web, :controller
 
   def index(conn, _params) do
     render conn, "index.html"

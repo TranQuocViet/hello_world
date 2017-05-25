@@ -1,4 +1,4 @@
-defmodule HelloWorld.ErrorHelpers do
+defmodule SocialWeb.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """
@@ -32,9 +32,9 @@ defmodule HelloWorld.ErrorHelpers do
     #     dgettext "errors", "is invalid"
     #
     if count = opts[:count] do
-      Gettext.dngettext(HelloWorld.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(SocialWeb.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(HelloWorld.Gettext, "errors", msg, opts)
+      Gettext.dgettext(SocialWeb.Gettext, "errors", msg, opts)
     end
   end
 end

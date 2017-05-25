@@ -1,5 +1,5 @@
-defmodule HelloWorld.FB do
-  alias HelloWorld.Tools
+defmodule SocialWeb.FB do
+  alias SocialWeb.Tools
   require Logger
 
   defmodule Graph do

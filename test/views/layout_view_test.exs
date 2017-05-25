@@ -1,3 +1,3 @@
-defmodule HelloWorld.LayoutViewTest do
-  use HelloWorld.ConnCase, async: true
+defmodule SocialWeb.LayoutViewTest do
+  use SocialWeb.ConnCase, async: true
 end

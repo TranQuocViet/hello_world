@@ -1,5 +1,5 @@
-defmodule HelloWorld.User do
-  use HelloWorld.Web, :model
+defmodule SocialWeb.User do
+  use SocialWeb.Web, :model
 
   @primary_key {:id, :string, autogenerate: false}
   schema "users" do

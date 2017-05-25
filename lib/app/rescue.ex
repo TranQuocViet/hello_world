@@ -1,4 +1,4 @@
-defmodule HelloWorld.Rescue do
+defmodule SocialWeb.Rescue do
   use AMQP
-  
+
 end

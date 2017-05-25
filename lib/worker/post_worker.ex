@@ -1,5 +1,5 @@
-defmodule HelloWorld.Worker.PostWorker do
-  alias HelloWorld.{ Repo, FB, Tools, User, Post, Comment }
+defmodule SocialWeb.Worker.PostWorker do
+  alias SocialWeb.{ Repo, FB, Tools, User, Post, Comment }
   import Ecto.Query, only: [from: 2]
   # import Ecto.Repo
 

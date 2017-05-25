@@ -1,4 +1,4 @@
 ExUnit.start
 
-Ecto.Adapters.SQL.Sandbox.mode(HelloWorld.Repo, :manual)
+Ecto.Adapters.SQL.Sandbox.mode(SocialWeb.Repo, :manual)
 

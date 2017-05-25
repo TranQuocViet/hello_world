@@ -1,5 +1,5 @@
-defmodule HelloWorld.PageControllerTest do
-  use HelloWorld.ConnCase
+defmodule SocialWeb.PageControllerTest do
+  use SocialWeb.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get conn, "/"

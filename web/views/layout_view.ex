@@ -1,3 +1,3 @@
-defmodule HelloWorld.LayoutView do
-  use HelloWorld.Web, :view
+defmodule SocialWeb.LayoutView do
+  use SocialWeb.Web, :view
 end

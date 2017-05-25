@@ -1,5 +1,5 @@
-defmodule HelloWorld.Router do
-  use HelloWorld.Web, :router
+defmodule SocialWeb.Router do
+  use SocialWeb.Web, :router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -13,13 +13,13 @@ defmodule HelloWorld.Router do
     plug :accepts, ["json"]
   end
 
-  # scope "/", HelloWorld do
+  # scope "/", SocialWeb do
   #   pipe_through :browser # Use the default browser stack
   #
   #   get "/", PageController, :index
   # end
 
-  scope "/api", HelloWorld do
+  scope "/api", SocialWeb do
     pipe_through :api
 
     # get "/", PageController, :index
@@ -36,7 +36,7 @@ defmodule HelloWorld.Router do
     end
   end
   # Other scopes may use custom stacks.
-  # scope "/api", HelloWorld do
+  # scope "/api", SocialWeb do
   #   pipe_through :api
   # end
 end

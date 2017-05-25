@@ -1,4 +1,4 @@
-defmodule HelloWorld.Repo.Migrations.CreateTableComments do
+defmodule SocialWeb.Repo.Migrations.CreateTableComments do
   use Ecto.Migration
 
   def change do

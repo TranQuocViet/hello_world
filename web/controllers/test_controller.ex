@@ -1,6 +1,6 @@
-defmodule HelloWorld.TestController do
-  use HelloWorld.Web, :controller
-  alias HelloWorld.{ Tools, User }
+defmodule SocialWeb.TestController do
+  use SocialWeb.Web, :controller
+  alias SocialWeb.{ Tools, User }
   def index(conn, params) do
 
     update_post = %{

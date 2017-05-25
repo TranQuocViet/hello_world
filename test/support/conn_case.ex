@@ -1,4 +1,4 @@
-defmodule HelloWorld.ConnCase do
+defmodule SocialWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -20,23 +20,23 @@ defmodule HelloWorld.ConnCase do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
 
-      alias HelloWorld.Repo
+      alias SocialWeb.Repo
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
 
-      import HelloWorld.Router.Helpers
+      import SocialWeb.Router.Helpers
 
       # The default endpoint for testing
-      @endpoint HelloWorld.Endpoint
+      @endpoint SocialWeb.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(HelloWorld.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(SocialWeb.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(HelloWorld.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(SocialWeb.Repo, {:shared, self()})
     end
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}

@@ -1,6 +1,6 @@
-defmodule HelloWorld.MainWorker do
+defmodule SocialWeb.MainWorker do
   use AMQP
-  # alias HelloWorld.Worker.{
+  # alias SocialWeb.Worker.{
   #   PostWorker, TestWorker
   # }
 

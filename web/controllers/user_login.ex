@@ -1,6 +1,6 @@
-defmodule HelloWorld.UserLogin do
-  use HelloWorld.Web, :controller
-  alias HelloWorld.{Tools}
+defmodule SocialWeb.UserLogin do
+  use SocialWeb.Web, :controller
+  alias SocialWeb.{Tools}
   # def user_login(conn, params) do
   #   redirect_uri = "http://localhost:8000/"
   #   data = [

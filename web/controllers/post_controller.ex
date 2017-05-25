@@ -1,7 +1,7 @@
-defmodule HelloWorld.PostController do
-  use HelloWorld.Web, :controller
+defmodule SocialWeb.PostController do
+  use SocialWeb.Web, :controller
   # alias Phoenix.Channel
-  alias HelloWorld.{ Tools, Repo, Post, Comment }
+  alias SocialWeb.{ Tools, Repo, Post, Comment }
   import Ecto.Query, only: [from: 2]
 
   def index(conn, params) do

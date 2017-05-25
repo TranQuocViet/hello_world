@@ -1,5 +1,5 @@
-defmodule HelloWorld.PublicAsset do
-  use HelloWorld.Web, :model
+defmodule SocialWeb.PublicAsset do
+  use SocialWeb.Web, :model
 
   @primary_key {:id, Ecto.UUID, autogenerate: true}
   schema "public_asset" do

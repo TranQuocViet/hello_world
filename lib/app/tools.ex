@@ -1,13 +1,13 @@
-defmodule HelloWorld.Tools do
+defmodule SocialWeb.Tools do
   # import Plug.Conn
   # import Ecto.Query, only: [from: 2]
-  alias HelloWorld.{ Repo, Storage, Post, PublicAsset }
+  alias SocialWeb.{ Repo, Storage, Post, PublicAsset }
   alias Ecto.DateTime
   import Ecto.Query, only: [from: 2]
 
   def enqueue_task(task) do
     IO.inspect task
-    r_channel = Application.get_env(:hello_world, :r_channel)
+    r_channel = Application.get_env(:social_web, :r_channel)
     r_queue = System.get_env("R_QUEUE") || "task_pool"
     task_msg = Poison.encode! task
     AMQP.Basic.publish r_channel, "", r_queue, task_msg, persistent: true

@@ -1,5 +1,5 @@
-defmodule HelloWorld.Post do
-  use HelloWorld.Web, :model
+defmodule SocialWeb.Post do
+  use SocialWeb.Web, :model
 
   @primary_key {:id, :string, autogenerate: false}
   schema "posts" do
@@ -16,8 +16,8 @@ defmodule HelloWorld.Post do
     field :trust_hot,             :integer, default: 0
     field :created_time,          Ecto.DateTime
 
-    belongs_to :user, HelloWorld.User, type: :string
-    has_many :comment, HelloWorld.Comment
+    belongs_to :user, SocialWeb.User, type: :string
+    has_many :comment, SocialWeb.Comment
 
     timestamps
   end
