@@ -12,8 +12,8 @@ defmodule HelloWorld.Consumer do
   end
 
   def init(_otps) do
-    # username = System.get_env("R_USERNAME") || "social_web"
-    # password = System.get_env("R_PASSWORD") || "social_web"
+    # username = System.get_env("R_USERNAME") || "hello_world"
+    # password = System.get_env("R_PASSWORD") || "hello_world"
     # host = System.get_env("R_HOST") || "localhost"
     # port = System.get_env("R_PORT") || "5673"
     # vhost = System.get_env("R_VHOST") || "v2"
@@ -46,8 +46,8 @@ defmodule HelloWorld.Consumer do
 
     {:ok, consumer_tag} = Basic.consume(chan, @queue)
 
-    Application.put_env(:social_web, :r_channel, chan)
-    # Application.put_env(:social_web, :r_consumer_tag, consumer_tag, persistent: true)
+    Application.put_env(:hello_world, :r_channel, chan)
+    # Application.put_env(:hello_world, :r_consumer_tag, consumer_tag, persistent: true)
     {:ok, chan}
   end
 

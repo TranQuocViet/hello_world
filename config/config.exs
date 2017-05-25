@@ -20,7 +20,7 @@ config :logger, :console,
 config :hackney,
   max_connections: 120
 # Configures cronjob
-config :quantum, social_web: [
+config :quantum, hello_world: [
     cron: [
       update_post: [
         schedule: "*/5 * * * *",
