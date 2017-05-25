@@ -15,13 +15,16 @@ config :hello_world, HelloWorld.Endpoint,
   http: [port: 8888],
   url: [host: "example.com", port: 80],
   root: ".",
-  # cache_static_manifest: "priv/static/manifest.json",
   server: true,
   version: Mix.Project.config[:version],
   cache_static_manifest: "priv/static/manifest.json"
 
 # Do not print debug messages in production
 config :logger, level: :info
+
+config :hello_world, ecto_repos: [
+  HelloWorld.Repo
+]
 
 config :hello_world, HelloWorld.Repo,
 adapter: Ecto.Adapters.Postgres,

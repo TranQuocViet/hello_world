@@ -6,17 +6,12 @@
 use Mix.Config
 
 # General application configuration
-# config :hello_world,
-#   ecto_repos: [HelloWorld.Repo]
-
-# Configures the endpoint
 config :hello_world, HelloWorld.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "eHVJjdZ2T1G5eYw3dRO2vXNAQUFrgXOAJgAALwpxkHu34YoIodGt3r/Mw8bzu9Nx",
   render_errors: [view: HelloWorld.ErrorView, accepts: ~w(html json)],
   pubsub: [name: HelloWorld.PubSub,
            adapter: Phoenix.PubSub.PG2]
-
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
