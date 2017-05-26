@@ -3,7 +3,7 @@ defmodule SocialWeb.Worker.PostWorker do
   import Ecto.Query, only: [from: 2]
   # import Ecto.Repo
 
-  @token "EAAYqPb8KTFcBAGZAaArAqm6AHUWmF8ZBdOZCwE3hsTIzqSpSe1A8Akb4Fi5dAHOLhwMwhDP7RpwqndomyZA2sJ0DpLcqZCKSo4uIZBpzHyBTWt4uQPNkJiBJTGfHR8TM5RovMcJLnpAUxdSBcj6gg7hb3BITdvW9ZCZC5OaIrR5UOwvwrmI6HGIhdX5Nr3OyKAwZD"
+  @token "EAAYqPb8KTFcBAJ4yOZAZBOVQNZCZCI1KQEHkGbvSPBG9Lnqow0ZBBQ7KJZBC4ti4AJKf9BzAJtzyL2C4nxr57QRJNJEEqDSbgUMM9vv9zQDG4nVtwZAs8f7vHdB55TCBjYD6zn69nCBGnM5buNWF1SkTnHxFmHVrtITMd4sDfmU8JyiNRMMBdDLcZBcezc8qCiUZD"
   @post_fields "id,message,from,permalink_url,full_picture,created_time,likes,attachments{type,url},comments{id,message,from,attachment,comments{id,message,attachment,from,like_count},comment_count}"
   def update_post(obj) do
     %{

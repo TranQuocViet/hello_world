@@ -11,7 +11,6 @@ defmodule SocialWeb.MainWorker do
        {:ok, obj} ->
          # IO.puts "MAIN WORKER #{inspect obj}"
          case obj["action"] do
-          #  "worker:test_worker"                -> TestWorker.log(obj)
            "group:update_post"                 -> PostWorker.update_post(obj)
            nil                                 -> requeue_uncaught(chan, obj)
            _                                   -> requeue_uncaught(chan, obj)
