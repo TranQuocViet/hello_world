@@ -1,8 +1,8 @@
 defmodule SocialWeb.MainWorker do
   use AMQP
-  # alias SocialWeb.Worker.{
-  #   PostWorker, TestWorker
-  # }
+  alias SocialWeb.Worker.{
+    PostWorker
+  }
 
 
   def assign_job(chan, tag, _redelivered, payload) do
