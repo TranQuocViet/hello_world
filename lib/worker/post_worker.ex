@@ -5,6 +5,21 @@ defmodule SocialWeb.Worker.PostWorker do
 
   @token "EAAYqPb8KTFcBAJ4yOZAZBOVQNZCZCI1KQEHkGbvSPBG9Lnqow0ZBBQ7KJZBC4ti4AJKf9BzAJtzyL2C4nxr57QRJNJEEqDSbgUMM9vv9zQDG4nVtwZAs8f7vHdB55TCBjYD6zn69nCBGnM5buNWF1SkTnHxFmHVrtITMd4sDfmU8JyiNRMMBdDLcZBcezc8qCiUZD"
   @post_fields "id,message,from,permalink_url,full_picture,created_time,likes,attachments{type,url},comments{id,message,from,attachment,comments{id,message,attachment,from,like_count},comment_count}"
+
+  # def ggggg do
+  #   graph_call = %FB.Graph{
+  #     version: "v2.8",
+  #     id: "1165749846825629",
+  #     ref: "access_token",
+  #     custom: %{
+  #       "client_id" => fb_app_id,
+  #       "client_secret" => fb_app_secret,
+  #       "grant_type" => "fb_exchange_token",
+  #       "fb_exchange_token" => short_lived_access_token
+  #   }
+  #   |> FB.graph_get
+  # end
+
   def update_post(obj) do
     %{
       "user_id" => user_id

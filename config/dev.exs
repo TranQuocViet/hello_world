@@ -7,7 +7,7 @@ use Mix.Config
 # watchers to your application. For example, we use it
 # with brunch.io to recompile .js and .css sources.
 config :social_web, SocialWeb.Endpoint,
-  http: [port: 4000],
+  http: [port: 8000],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
@@ -33,11 +33,16 @@ config :logger, :console, format: "[$level] $message\n"
 # in production as building large stacktraces may be expensive.
 config :phoenix, :stacktrace_depth, 20
 
+config :social_web, env: :dev
+
+config :social_web, ecto_repos: [SocialWeb.Repo]
+
 # Configure your database
 config :social_web, SocialWeb.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "social_web_dev",
+  username: "viet911",
+  password: "tranquocviet",
+  database: "social_web",
   hostname: "localhost",
+  port: 6432,
   pool_size: 10

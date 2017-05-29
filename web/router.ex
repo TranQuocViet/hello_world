@@ -13,11 +13,11 @@ defmodule SocialWeb.Router do
     plug :accepts, ["json"]
   end
 
-  # scope "/", SocialWeb do
-  #   pipe_through :browser # Use the default browser stack
-  #
-  #   get "/", PageController, :index
-  # end
+  scope "/", SocialWeb do
+    pipe_through :browser # Use the default browser stack
+
+    get "/", PageController, :index
+  end
 
   scope "/api", SocialWeb do
     pipe_through :api

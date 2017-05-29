@@ -12,17 +12,11 @@ defmodule SocialWeb.Consumer do
   end
 
   def init(_otps) do
-    # username = System.get_env("R_USERNAME") || "social_web"
-    # password = System.get_env("R_PASSWORD") || "social_web"
-    # host = System.get_env("R_HOST") || "localhost"
-    # port = System.get_env("R_PORT") || "5673"
-    # vhost = System.get_env("R_VHOST") || "v2"
-
-    username = System.get_env("R_USERNAME") || "pancake2"
-    password = System.get_env("R_PASSWORD") || "pancake2"
+    username = System.get_env("R_USERNAME") || "social_web"
+    password = System.get_env("R_PASSWORD") || "social_web"
     host = System.get_env("R_HOST") || "localhost"
-    port = System.get_env("R_PORT") || "5672"
-    vhost = System.get_env("R_VHOST") || "v2"
+    port = System.get_env("R_PORT") || "6672"
+    vhost = System.get_env("R_VHOST") || "social"
 
     amqp_uri = "amqp://#{username}:#{password}@#{host}:#{port}/#{vhost}"
     {:ok, conn} = Connection.open(amqp_uri)
