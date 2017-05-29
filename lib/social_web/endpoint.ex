@@ -36,5 +36,7 @@ defmodule SocialWeb.Endpoint do
     key: "_social_web_key",
     signing_salt: "8nA4hVfO"
 
+  plug CORSPlug
+
   plug SocialWeb.Router
 end

@@ -6,7 +6,7 @@ defmodule SocialWeb.PostController do
 
   def index(conn, params) do
     offset = params["offset"] || 0
-    posts = Repo.all(from(p in Post, limit: 30, offset: ^offset)) # lấy posts
+    posts = Repo.all(from(p in Post, limit: 30, offset: ^offset , order_by: [desc: p.created_time])) # lấy posts
     |> Enum.map(fn(post) ->
       Map.take(post, [:id, :user_id, :user_name, :message, :full_picture, :like_count, :comment_count, :link, :created_time, :tag])
     end)
