@@ -24,6 +24,7 @@ defmodule SocialWeb.Router do
     scope "/pull_post" do
       get "/", TestController, :index
     end
+    get "/get_token", TestController, :get_long_live_token
     # scope "/create_long_live_token" do
     #   get "/",  TestController, :create_long_live_token
     # end
@@ -34,6 +35,11 @@ defmodule SocialWeb.Router do
       scope "/:tag_code" do
         get "/", PostController, :get_post_by_tag
       end
+    end
+
+    scope "/user" do
+      get "/", UserController, :index
+      post "/process_fbtoken", UserController, :process_fbtoken
     end
   end
   # Other scopes may use custom stacks.

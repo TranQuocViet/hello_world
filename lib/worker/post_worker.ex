@@ -3,7 +3,7 @@ defmodule SocialWeb.Worker.PostWorker do
   import Ecto.Query, only: [from: 2]
   # import Ecto.Repo
 
-  @token "EAAajvMCPLEgBADFb8hEd0yHsZCVNu6nkxligYf1FkKbHDbYZAOQFyDMUMg9N3PZC2VPBnZB61XNXHjQGadxLs5U5s56WbCEjK7cj1rzZB4FPycaiCqto2c2NE94Qz8DoHw6kXF8wZAXXU8aCJlLSMfZCZAdacwROL3IZD"
+  # @token "EAAajvMCPLEgBADFb8hEd0yHsZCVNu6nkxligYf1FkKbHDbYZAOQFyDMUMg9N3PZC2VPBnZB61XNXHjQGadxLs5U5s56WbCEjK7cj1rzZB4FPycaiCqto2c2NE94Qz8DoHw6kXF8wZAXXU8aCJlLSMfZCZAdacwROL3IZD"
   @post_fields "id,message,from,permalink_url,full_picture,created_time,likes,attachments{type,url},comments{id,message,from,attachment,comments{id,message,attachment,from,like_count},comment_count}"
   # def ggggg do
   #   graph_call = %FB.Graph{
@@ -33,7 +33,7 @@ defmodule SocialWeb.Worker.PostWorker do
           graph_call = %FB.Graph{
               id: "101895420341772",
               ref: "feed",
-              access_token: @token,
+              access_token: user.access_token,
               fields: @post_fields,
               version: "v2.8"
             }
@@ -50,12 +50,12 @@ defmodule SocialWeb.Worker.PostWorker do
                 fields: @post_fields,
                 version: "v2.8",
                 limit: 100,
-                access_token: @token
+                access_token: user.access_token
               } |> FB.graph
 
                 Ecto.Changeset.change(user, %{paging: %{"previous" => previous_paging, "next" => next_paging}})
                 |> Repo.update!
-                sync_post_from_graph(response_data, response_paging, :next, user_id, @token)
+                sync_post_from_graph(response_data, response_paging, :next, user_id, user.access_token)
               end
             else
               IO.puts "MARKETING API ERROR"
@@ -68,7 +68,7 @@ defmodule SocialWeb.Worker.PostWorker do
               response = graph_call["response"]
               response_data = response["data"]
               response_paging = response["paging"]
-              sync_post_from_graph(response_data, response_paging, :next, user_id, @token)
+              sync_post_from_graph(response_data, response_paging, :next, user_id, user.access_token)
             else
               IO.puts "MARKETING API ERROR"
               IO.inspect graph_call
@@ -81,7 +81,7 @@ defmodule SocialWeb.Worker.PostWorker do
             response_data = response["data"]
             response_paging = response["paging"]
             if response_data != [] do
-              sync_post_from_graph(response_data, response_paging, :previous, user_id, @token)
+              sync_post_from_graph(response_data, response_paging, :previous, user_id, user.access_token)
             end
           else
             IO.puts "MARKETING API ERROR"
