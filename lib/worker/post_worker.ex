@@ -3,21 +3,7 @@ defmodule SocialWeb.Worker.PostWorker do
   import Ecto.Query, only: [from: 2]
   # import Ecto.Repo
 
-  # @token "EAAajvMCPLEgBADFb8hEd0yHsZCVNu6nkxligYf1FkKbHDbYZAOQFyDMUMg9N3PZC2VPBnZB61XNXHjQGadxLs5U5s56WbCEjK7cj1rzZB4FPycaiCqto2c2NE94Qz8DoHw6kXF8wZAXXU8aCJlLSMfZCZAdacwROL3IZD"
   @post_fields "id,message,from,permalink_url,full_picture,created_time,likes,attachments{type,url},comments{id,message,from,attachment,comments{id,message,attachment,from,like_count},comment_count}"
-  # def ggggg do
-  #   graph_call = %FB.Graph{
-  #     version: "v2.8",
-  #     id: "1165749846825629",
-  #     ref: "access_token",
-  #     custom: %{
-  #       "client_id" => fb_app_id,
-  #       "client_secret" => fb_app_secret,
-  #       "grant_type" => "fb_exchange_token",
-  #       "fb_exchange_token" => short_lived_access_token
-  #   }
-  #   |> FB.graph_get
-  # end
 
   def exception() do
 

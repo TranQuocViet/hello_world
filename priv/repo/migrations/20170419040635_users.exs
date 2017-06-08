@@ -7,6 +7,7 @@ defmodule SocialWeb.Repo.Migrations.Users do
       add :name, :string
       add :is_admin, :boolean
       add :access_token, :string
+      add :token_id_available, :boolean
       add :paging, :map
       # add :
     end

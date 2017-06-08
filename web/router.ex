@@ -39,7 +39,7 @@ defmodule SocialWeb.Router do
 
     scope "/user" do
       get "/", UserController, :index
-      post "/process_fbtoken", UserController, :process_fbtoken
+      post "/sync_data", UserController, :login_and_sync_data
     end
   end
   # Other scopes may use custom stacks.
