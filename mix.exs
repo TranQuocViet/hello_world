@@ -46,9 +46,9 @@ defmodule SocialWeb.Mixfile do
      {:amqp_client, git: "https://github.com/dsrosario/amqp_client.git", branch: "erlang_otp_19", override: true},
      {:amqp, "0.1.4", override: true},
      {:cors_plug, "~> 1.3"},
+     {:exrm, "~> 1.0"},
      {:quantum, ">= 1.9.1"},
-     {:timex, "~> 3.0"},
-     {:exrm, "~> 1.0"}
+     {:timex, "~> 3.0"}
    ]
   end
 
