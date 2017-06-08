@@ -19,8 +19,8 @@ defmodule SocialWeb.Mixfile do
   def application do
     [mod: {SocialWeb, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :httpoison, :amqp, :json_web_token, :cors_plug, :quantum, :timex,
-                    :phoenix_ecto, :postgrex, :ecto]]
+                    :httpoison, :amqp, :json_web_token, :cors_plug,
+                    :phoenix_ecto, :postgrex, :ecto, :quantum, :timex]]
   end
 
   # Specifies which paths to compile per environment.
