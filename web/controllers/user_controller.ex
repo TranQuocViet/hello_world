@@ -3,6 +3,8 @@ defmodule SocialWeb.UserController do
   alias SocialWeb.{Tools, FB, User}
   import Ecto.Query, only: [from: 2]
 
+  @group_id System.get_env("GROUP_ID") || "101895420341772"
+
   def index(conn, _params) do
     admins = Repo.all(from(u in User, select: u))
     |> Enum.map(fn(user) ->
@@ -42,7 +44,7 @@ defmodule SocialWeb.UserController do
       if graph_call["success"] do
         data = graph_call["data"]
         gg = Enum.find(data, fn group ->
-          ((group["id"] == "101895420341772") && (group["administrator"] == true))
+          ((group["id"] == "@group_id") && (group["administrator"] == true))
         end)
       end
       json conn, %{success: false, message: "Không tìm thấy tài khoản admin này trong db" }
@@ -67,7 +69,7 @@ defmodule SocialWeb.UserController do
       if graph_call["success"] do
         data = graph_call["response"]["data"]
         have_pancake_group = Enum.find(data, fn group ->
-          ((group["id"] == "101895420341772") && (group["administrator"] == true))
+          ((group["id"] == "@group_id") && (group["administrator"] == true))
         end)
         if have_pancake_group && (have_pancake_group["administrator"] == true) do
           long_live_token = FB.generate_long_live_access_token(short_access_token)
