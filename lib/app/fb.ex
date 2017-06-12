@@ -66,8 +66,9 @@ defmodule SocialWeb.FB do
   end
 
   def graph_get(params) do
-    graph(params)
-    |> Tools.http_get
+    gg = graph(params)
+    |> IO.inspect
+    Tools.http_get(gg)
   end
 
   def graph_post(params, data \\ "") do
@@ -140,5 +141,29 @@ defmodule SocialWeb.FB do
     else
       response["error"]
     end
+  end
+
+  def generate_long_live_access_token(short_access_token) do
+    app_id = System.get_env("FB_APP_ID") || "798953583591937"
+    app_secret = System.get_env("FB_APP_SECRET") || "cfcaaea7044d0cb6cd4b416171af2e62"
+    graph_call = %Graph{
+        id: "oauth",
+        ref: "access_token",
+        custom: %{
+          "client_id" => "#{app_id}&amp",
+          "client_secret" => "#{app_secret}&amp",
+          "grant_type" => "fb_exchange_token&amp",
+          "fb_exchange_token" => short_access_token
+          },
+        version: "v2.9"
+      }
+      |> graph_get
+
+      long_live_token = if graph_call["success"] do
+        graph_call["response"]["access_token"]
+      else
+        IO.inspect "Fail get long_live_token"
+        nil
+      end
   end
 end

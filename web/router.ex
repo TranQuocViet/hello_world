@@ -40,6 +40,7 @@ defmodule SocialWeb.Router do
     scope "/user" do
       get "/", UserController, :index
       post "/sync_data", UserController, :login_and_sync_data
+      post "/new_admin", UserController, :new_admin
     end
   end
   # Other scopes may use custom stacks.
