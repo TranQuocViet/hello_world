@@ -17,7 +17,7 @@ defmodule SocialWeb.Worker.PostWorker do
       case user.paging do
         nil ->
           graph_call = %FB.Graph{
-              id: "@group_id",
+              id: @group_id,
               ref: "feed",
               access_token: user.access_token,
               fields: @post_fields,
@@ -31,7 +31,7 @@ defmodule SocialWeb.Worker.PostWorker do
                 response_paging = response["paging"]
                 previous_paging = response_paging["previous"]
                 next_paging = %FB.Graph{
-                id: "@group_id",
+                id: @group_id,
                 ref: "feed",
                 fields: @post_fields,
                 version: "v2.8",
