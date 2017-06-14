@@ -3,7 +3,9 @@ defmodule SocialWeb.UserController do
   alias SocialWeb.{Tools, FB, User}
   import Ecto.Query, only: [from: 2]
 
-  @group_id System.get_env("GROUP_ID") || "101895420341772"
+  # @group_id System.get_env("GROUP_ID") || "101895420341772"
+  @group_id System.get_env("GROUP_ID") || "235583826938860"
+
 
   def index(conn, _params) do
     admins = Repo.all(from(u in User, select: u))
@@ -61,11 +63,12 @@ defmodule SocialWeb.UserController do
       graph_call = %FB.Graph{
         id: user_id,
         ref: "groups",
-        fields: "modetor",
+        fields: "moderator",
         access_token: short_access_token,
         version: "v2.9"
       }
       |> FB.graph_get
+      |> IO.inspect
       if graph_call["success"] do
         data = graph_call["response"]["data"]
         have_pancake_group = Enum.find(data, fn group ->
@@ -96,7 +99,7 @@ defmodule SocialWeb.UserController do
           end)
           json conn, %{data: data_admin}
         else #người dùng ko phải admin
-          json conn, %{message: "Bạn ko có quyền admin trên pancake group"}
+          json conn, %{message: "Bạn ko có quyền admin trên pancake group", logout: true}
         end
       else #
         IO.inspect "API request fail, ko check duoc tai khoan admin"

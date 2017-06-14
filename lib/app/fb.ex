@@ -66,9 +66,8 @@ defmodule SocialWeb.FB do
   end
 
   def graph_get(params) do
-    gg = graph(params)
-    |> IO.inspect
-    Tools.http_get(gg)
+    graph(params)
+    |> Tools.http_get
   end
 
   def graph_post(params, data \\ "") do
