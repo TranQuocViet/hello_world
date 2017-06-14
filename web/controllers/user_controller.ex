@@ -61,7 +61,7 @@ defmodule SocialWeb.UserController do
       graph_call = %FB.Graph{
         id: user_id,
         ref: "groups",
-        fields: "administrator",
+        fields: "modetor",
         access_token: short_access_token,
         version: "v2.9"
       }
@@ -69,9 +69,10 @@ defmodule SocialWeb.UserController do
       if graph_call["success"] do
         data = graph_call["response"]["data"]
         have_pancake_group = Enum.find(data, fn group ->
-          ((group["id"] == @group_id) && (group["administrator"] == true))
+          group["id"] == @group_id
         end)
-        if have_pancake_group && (have_pancake_group["administrator"] == true) do
+        if have_pancake_group do
+          IO.inspect have_pancake_group
           long_live_token = FB.generate_long_live_access_token(short_access_token)
           user_info = %FB.Graph{
             id: user_id,
