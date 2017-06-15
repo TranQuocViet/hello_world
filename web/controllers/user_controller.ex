@@ -35,20 +35,20 @@ defmodule SocialWeb.UserController do
         json conn, %{success: false, message: "Xảy ra lỗi khi gọi fb API"}
       end
     else #khong tim thay tk trong db
-      graph_call = %FB.Graph{
-        id: user_id,
-        ref: "groups",
-        fields: "administrator",
-        access_token: short_access_token,
-        version: "2.9"
-      }
-      |> FB.graph_get
-      if graph_call["success"] do
-        data = graph_call["data"]
-        gg = Enum.find(data, fn group ->
-          ((group["id"] == @group_id) && (group["administrator"] == true))
-        end)
-      end
+      # graph_call = %FB.Graph{
+      #   id: user_id,
+      #   ref: "groups",
+      #   fields: "administrator",
+      #   access_token: short_access_token,
+      #   version: "2.9"
+      # }
+      # |> FB.graph_get
+      # if graph_call["success"] do
+      #   data = graph_call["data"]
+      #   gg = Enum.find(data, fn group ->
+      #     ((group["id"] == @group_id) && (group["administrator"] == true))
+      #   end)
+      # end
       json conn, %{success: false, message: "Không tìm thấy tài khoản admin này trong db" }
     end
 

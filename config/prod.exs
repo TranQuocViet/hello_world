@@ -16,6 +16,7 @@ config :social_web, SocialWeb.Endpoint,
   url: [host: "example.com", port: 80],
   root: ".",
   server: true,
+  check_origin: ["//*.pages.fm"],
   version: Mix.Project.config[:version],
   cache_static_manifest: "priv/static/manifest.json"
 
