@@ -25,13 +25,11 @@ config :quantum, social_web: [
     cron: [
       update_post: [
         schedule: "*/5 * * * *",
-        task: "SocialWeb.ScheduledTask.update_post",
-        nodes: [:'nonode@nohost']
+        task: "SocialWeb.ScheduledTask.update_post"
       ],
       adjust_trust_hot: [
         schedule: "@daily",
-        task: "SocialWeb.ScheduledTask.adjust_trust_hot",
-        nodes: [:'nonode@nohost']
+        task: "SocialWeb.ScheduledTask.adjust_trust_hot"
       ]
     ]
   ]
