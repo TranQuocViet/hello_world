@@ -22,7 +22,7 @@ defmodule SocialWeb.UserController do
     if admin_user = Repo.get(User, user_id) do
       long_live_token = FB.generate_long_live_access_token(short_access_token)
       if long_live_token do
-        Ecto.Changeset.change(admin_user, %{access_token: long_live_token})
+        Ecto.Changeset.change(admin_user, %{access_token: long_live_token, is_admin: true})
         |> Repo.update
 
         update_post = %{
