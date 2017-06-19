@@ -159,7 +159,7 @@ defmodule SocialWeb.Worker.PostWorker do
             user_name: post["from"]["name"],
             like_count: like_count,
             full_picture: post["full_picture"],
-            attachments: post_attachments,
+            # attachments: post_attachments,
             comment_count: comment_count,
             # tag: tag,
             trust_hot: trust_hot,
@@ -185,7 +185,6 @@ defmodule SocialWeb.Worker.PostWorker do
     if post_attachments = post["attachments"] do
       data = post_attachments["data"]
       Enum.into(data, [], fn each_attach ->
-        IO.inspect each_attach
         type = each_attach["type"]
         url = each_attach["url"]
         %{type: type, url: url}
@@ -210,7 +209,7 @@ defmodule SocialWeb.Worker.PostWorker do
   end
 
   def sync_comment_from_post_graph([], parent_id, post_id) do
-    IO.inspect "do nothing"
+    IO.inspect "kết thúc add comment"
   end
 
   def add_comment(post_id, parent_id, comment) do
@@ -225,13 +224,13 @@ defmodule SocialWeb.Worker.PostWorker do
           post_id: post_id,
           parent_id: parent_id,
           message: comment["message"],
-          attachments: comment_media(comment)
+          # attachments: comment_media(comment)
         } |> Repo.insert!
       existed_comment ->
         from(c in Comment, where: c.id == ^comment_id)
         |> Repo.update_all([set: [
             message: comment["message"],
-            attachments: comment_media(comment)
+            # attachments: comment_media(comment)
           ]])
     end
 
