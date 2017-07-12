@@ -9,6 +9,10 @@ defmodule SocialWeb.Repo.Migrations.AddIndexAndTimestamp do
       timestamps default: "2016-01-01 00:00:01"
     end
 
+    alter table(:posts) do
+      add :type_user, :string
+    end
+
     create index(:posts, [:id])
     create index(:posts, ["inserted_at DESC"])
     create index(:comments, [:id])

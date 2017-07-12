@@ -42,6 +42,11 @@ defmodule SocialWeb.Worker.PostWorker do
       "user_id" => user_id
     } = obj
     if user = Repo.get(User, user_id) do
+      admin_ids = Repo.all(from(a in User, where: a.is_admin == true)) |> Enum.reduce([], fn(x, acc) ->
+          id = x.id
+        List.insert_at(acc, 0, id)
+      end)
+
       case user.paging do
         nil ->
           graph_call = %FB.Graph{
@@ -69,7 +74,7 @@ defmodule SocialWeb.Worker.PostWorker do
 
                 Ecto.Changeset.change(user, %{paging: %{"previous" => previous_paging, "next" => next_paging}})
                 |> Repo.update!
-                sync_post_from_graph(response_data, response_paging, :next, user_id, user.access_token)
+                sync_post_from_graph(response_data, response_paging, :next, user_id, user.access_token, admin_ids)
               end
             else
               IO.puts "MARKETING API ERROR"
@@ -82,7 +87,7 @@ defmodule SocialWeb.Worker.PostWorker do
               response = graph_call["response"]
               response_data = response["data"]
               response_paging = response["paging"]
-              sync_post_from_graph(response_data, response_paging, :next, user_id, user.access_token)
+              sync_post_from_graph(response_data, response_paging, :next, user_id, user.access_token, admin_ids)
             else
               IO.puts "MARKETING API ERROR"
               IO.inspect graph_call
@@ -95,7 +100,7 @@ defmodule SocialWeb.Worker.PostWorker do
             response_data = response["data"]
             response_paging = response["paging"]
             if response_data != [] do
-              sync_post_from_graph(response_data, response_paging, :previous, user_id, user.access_token)
+              sync_post_from_graph(response_data, response_paging, :previous, user_id, user.access_token, admin_ids)
             end
           else
             IO.puts "MARKETING API ERROR"
@@ -109,8 +114,8 @@ defmodule SocialWeb.Worker.PostWorker do
 
   end
 
-  def sync_post_from_graph(response_data, response_paging, direction, user_id, access_token, current_count \\ 0)
-  def sync_post_from_graph([], response_paging, direction, user_id, access_token, current_count) do
+  def sync_post_from_graph(response_data, response_paging, direction, user_id, access_token, admin_ids, current_count \\ 0)
+  def sync_post_from_graph([], response_paging, direction, user_id, access_token, admin_ids, current_count) do
     user = Repo.get(User, user_id)
     case direction do # luôn có paging (API thế)
       :next ->
@@ -124,7 +129,7 @@ defmodule SocialWeb.Worker.PostWorker do
             response = graph_call["response"]
             response_data = response["data"]
             if response_data != [] do
-              sync_post_from_graph(response_data, response["paging"], direction, user_id, access_token, current_count)
+              sync_post_from_graph(response_data, response["paging"], direction, user_id, access_token, admin_ids, current_count)
             else
               user_paging = Map.drop(user.paging, ["next"])
               Ecto.Changeset.change(user, %{last_active_at: Ecto.DateTime.utc, paging: user_paging})
@@ -147,7 +152,7 @@ defmodule SocialWeb.Worker.PostWorker do
             response = graph_call["response"]
             response_data = response["data"]
             if response_data != [] do
-              sync_post_from_graph(response_data, response["paging"], direction, user_id, access_token, current_count)
+              sync_post_from_graph(response_data, response["paging"], direction, user_id, access_token, admin_ids, current_count)
             end
           else
             IO.puts "MARKETING API ERROR"
@@ -157,15 +162,22 @@ defmodule SocialWeb.Worker.PostWorker do
     end
   end
 
-  def sync_post_from_graph([post|posts], response_paging, direction, user_id, access_token, current_count) do
-    add_post(post, user_id)
-    sync_post_from_graph(posts, response_paging, direction, user_id, access_token, current_count + 1)
+  def sync_post_from_graph([post|posts], response_paging, direction, user_id, access_token, admin_ids, current_count) do
+    add_post(post, admin_ids)
+    sync_post_from_graph(posts, response_paging, direction, user_id, access_token, admin_ids, current_count + 1)
   end
 
-  def add_post(post, user_id) do
+  def add_post(post, admin_ids) do
     post_id = post["id"]
     post_attachments = attachment(post)
     like_count = like_count(post)
+    post_user_id = post["from"]["id"]
+    # type_user = if Enum.member?(admin_ids, post_user_id) do
+    #   "admin"
+    # else
+    #   "member"
+    # end
+
     comment_count = if comments = post["comments"] do
       data_comment = comments["data"]
       Enum.count(data_comment)
@@ -191,6 +203,7 @@ defmodule SocialWeb.Worker.PostWorker do
             comment_count: comment_count,
             # tag: tag,
             trust_hot: trust_hot,
+            # type_user: type_user,
             created_time: Tools.parse_fb_time(post["created_time"]) |> Tools.utc_to_vn_time,
             inserted_at: Ecto.DateTime.utc
           } |> Repo.insert!

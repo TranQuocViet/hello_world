@@ -15,6 +15,7 @@ defmodule SocialWeb.Post do
     field :tag,                   :integer, default: 0
     field :trust_hot,             :integer, default: 0
     field :created_time,          Ecto.DateTime
+    field :type_user,             :string
 
     belongs_to :user, SocialWeb.User, type: :string
     has_many :comment, SocialWeb.Comment
