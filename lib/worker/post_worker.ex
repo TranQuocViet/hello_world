@@ -3,10 +3,38 @@ defmodule SocialWeb.Worker.PostWorker do
   import Ecto.Query, only: [from: 2]
   # import Ecto.Repo
 
-  @post_fields "id,message,from,permalink_url,full_picture,created_time,likes,attachments{type,url},comments{id,message,from,attachment,comments{id,message,attachment,from,like_count},comment_count}"
+  @post_fields "id,message,from,permalink_url,full_picture,created_time,likes,attachments{type,url},comments{id,message,from,attachment,comment_count,like_count,created_time,comments{id,message,attachment,from,like_count,comment_count,created_time}}"
+  @comment_fields "id,message,from,attachment,comment_count,created_time,comments{id,message,attachment,from,like_count,created_time}"
   @group_id System.get_env("GROUP_ID") || "101895420341772"
-  def exception() do
-
+  def update_for_post(obj) do
+    %{
+      "user_id" => user_id,
+      "post_id" => post_id
+    } = obj
+    user = Repo.get(User, user_id)
+    post = Repo.get(Post, post_id)
+    graph_call = %FB.Graph{
+        id: post_id,
+        ref: "comments",
+        access_token: user.access_token,
+        fields: @comment_fields,
+        custom: %{"summary" => 1},
+        version: "v2.8"
+      }
+      |> FB.graph_get
+    if graph_call["success"] do
+      response = graph_call["response"]
+      data = response["data"]
+      sync_comment_from_post_graph(data, post_id, post_id)
+      summary = response["summary"]
+      new_comment_count = summary["total_count"]
+      IO.inspect new_comment_count
+      Ecto.Changeset.change(post, %{comment_count: new_comment_count})
+      |> Repo.update!
+      # graph_call_summary = %FB.Graph{
+      #   id: post_id
+      # }
+    end
   end
 
   def update_post(obj) do
@@ -170,6 +198,8 @@ defmodule SocialWeb.Worker.PostWorker do
           from(p in Post, where: p.id == ^post_id)
           |> Repo.update_all([set: [
             message: post["message"],
+            comment_count: comment_count,
+            like_count: like_count,
             # tag: tag,
             trust_hot: trust_hot
           ]])
@@ -223,13 +253,18 @@ defmodule SocialWeb.Worker.PostWorker do
           post_id: post_id,
           parent_id: parent_id,
           message: comment["message"],
-          attachments: comment_media(comment)
+          attachments: comment_media(comment),
+          like_count: comment["like_count"],
+          comment_count: comment["comment_count"],
+          created_time: Tools.parse_fb_time(comment["created_time"]) |> Tools.utc_to_vn_time
         } |> Repo.insert!
       existed_comment ->
         from(c in Comment, where: c.id == ^comment_id)
         |> Repo.update_all([set: [
             message: comment["message"],
-            attachments: comment_media(comment)
+            attachments: comment_media(comment),
+            like_count: comment["like_count"],
+            comment_count: comment["comment_count"]
           ]])
     end
 

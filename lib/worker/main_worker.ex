@@ -1,7 +1,7 @@
 defmodule SocialWeb.MainWorker do
   use AMQP
   alias SocialWeb.Worker.{
-    PostWorker
+    PostWorker, CommentWorker
   }
 
 
@@ -12,6 +12,7 @@ defmodule SocialWeb.MainWorker do
          # IO.puts "MAIN WORKER #{inspect obj}"
          case obj["action"] do
            "group:update_post"                 -> PostWorker.update_post(obj)
+           "group_post:update_for_post"         -> PostWorker.update_for_post(obj)
            nil                                 -> requeue_uncaught(chan, obj)
            _                                   -> requeue_uncaught(chan, obj)
          end

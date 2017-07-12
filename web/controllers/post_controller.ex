@@ -83,6 +83,31 @@ defmodule SocialWeb.PostController do
   #
   # end
 
+  def get_one_post(conn, params) do
+    post_id = params["post_id"]
+    posts = Repo.get(Post, post_id)
+    |> Map.take([:id, :user_id, :user_name, :message, :full_picture, :like_count, :comment_count, :link, :created_time, :tag])
+    comments = Repo.all(from(c in Comment, where: c.post_id == ^post_id, order_by: [desc: c.created_time]))
+    |> Enum.map(fn(comment) ->
+      Map.take(comment, [:id, :user_name, :user_id, :message, :attachments, :like_count, :comment_count])
+    end)
+    # IO.inspect post
+    user_id = case Mix.env() do
+      :dev -> "1362834353783843"
+      :prod -> "1165749846825629"
+      # _ -> "1165749846825629"
+    end
+
+    update_comment = %{
+      action: "group_post:update_for_post",
+      user_id: user_id,
+      post_id: post_id
+    }
+    Tools.enqueue_task(update_comment)
+    #đoạn này gửi sang worker để load dữ liệu mới nhất của post
+    json conn, %{sucess: true, data: %{posts: posts, comments: comments}}
+  end
+
   def add_tag(conn, params) do
     post_id = params["post_id"]
     tag = params["tag"]
@@ -90,4 +115,5 @@ defmodule SocialWeb.PostController do
     Ecto.Changeset.change(post, %{tag: tag})
     |> Repo.update
   end
+
 end
