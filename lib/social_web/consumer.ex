@@ -19,6 +19,7 @@ defmodule SocialWeb.Consumer do
     vhost = System.get_env("R_VHOST") || "social"
 
     amqp_uri = "amqp://#{username}:#{password}@#{host}:#{port}/#{vhost}"
+    IO.inspect amqp_uri
     {:ok, conn} = Connection.open(amqp_uri)
     {:ok, chan} = Channel.open(conn)
 
