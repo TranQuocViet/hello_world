@@ -99,18 +99,29 @@ defmodule SocialWeb.PostController do
     #     end)
     #     Map.put_new(post, :comments, comment_of_post)
     #   end)
-    comments1 = Enum.reduce(comments, [], fn(x, acc) ->
-      child_comment = Enum.reduce(comments, [], fn(y, aco) ->
-        if y["parent_id"] == x["id"] do
-          List.insert_at(aco, 0, y)
-          List.delete(comments, y)
+     new_comments = Enum.reduce(comments, [], fn(x, acc) ->
+      child_comments = Enum.reduce(comments, [], fn(y, aco) ->
+        if y.parent_id == x.id do
+          aco = List.insert_at(aco, 0, y)
+        else
+          aco
         end
       end)
-      new_comment = Map.put_new(x, :child_comment, child_comment)
-      List.insert_at(acc, 0, new_comment)
+      comment_with_childs = if Enum.count(child_comments) != 0 do
+        x = Map.put(x, :childs , child_comments)
+        List.insert_at(acc, 0, x)
+      else
+        List.insert_at(acc, 0, x)
+      end
     end)
 
-    IO.inspect comments1
+    comments_with_childs = Enum.reduce(new_comments, [], fn(comment, acc) ->
+      if comment.lever == 1 do
+        List.insert_at(acc, 0, comment)
+      else
+        acc
+      end
+    end)
 
     user_id = case Mix.env() do
       :dev -> "1362834353783843"
@@ -125,7 +136,7 @@ defmodule SocialWeb.PostController do
     }
     Tools.enqueue_task(update_comment)
     #đoạn này gửi sang worker để load dữ liệu mới nhất của post
-    json conn, %{sucess: true, data: %{posts: post, comments: comments}}
+    json conn, %{sucess: true, data: %{posts: post, comments: comments_with_childs}}
   end
 
   def add_tag(conn, params) do
