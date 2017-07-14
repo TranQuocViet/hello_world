@@ -33,7 +33,7 @@ defmodule SocialWeb.TestController do
         # "client_secret" => "cfcaaea7044d0cb6cd4b416171af2e62",
         "client_secret" => "d44758a616e905dc858961427dbca4c4",
         "grant_type" => "fb_exchange_token",
-        "fb_exchange_token" => "EAAajvMCPLEgBAAdJSA6YbKy8hh7WBf20B3n9L7hUBB62j6ZBWeYVNK99W7Rsp3ZB5VZC9a81kjdOn25a7k9nzba0K3vZBym7pGQ6cKyZA7PAnv2SoElcLoZAsBdO1QBqZARs4X1H3mpSKCcx65V51nR6U2DzdbkRl4gArQKZAW2QzyVM3tRup54ZA1E3KtDbH6ZA4ZD"
+        "fb_exchange_token" => "EAAajvMCPLEgBADfDPWLDZAinoRlTiVqH5Tc2fESj8zBR4FpjOwcURMwFqTWm8vJeeShZB9kuii0x5Qo66AYzWfm4Y9XMBDZBw6yPeBhjiF6NOc8eUwRmQJQVobE8OQbmoF3rDXWmiRy2GfPhPmwuOcbF6xcc7VXmRzHnZCwGWHdZBPi5NDju575jBIaGO2HkZD"
       }
     }
     |> FB.graph_get

@@ -254,7 +254,7 @@ defmodule SocialWeb.Worker.PostWorker do
   def sync_comment_from_post_graph([], parent_id, post_id) do
   end
 
-  def add_comment(post_id, parent_id, comment) do
+  def add_comment(post_id, parent_id, comment, lever \\ 1) do
     comment_id = comment["id"]
     message = comment["message"] || nil
     case Repo.get(Comment, comment_id) do
@@ -265,6 +265,7 @@ defmodule SocialWeb.Worker.PostWorker do
           user_name: comment["from"]["name"],
           post_id: post_id,
           parent_id: parent_id,
+          lever: lever,
           message: comment["message"],
           attachments: comment_media(comment),
           like_count: comment["like_count"],
@@ -281,14 +282,11 @@ defmodule SocialWeb.Worker.PostWorker do
           ]])
     end
 
-
-
-
     if comment["comments"] do
       children_comments = comment["comments"]["data"]
       Enum.each(children_comments, fn children_comment ->
         parent_id_of_children = comment["id"]
-        add_comment(post_id, parent_id_of_children, children_comment)
+        add_comment(post_id, parent_id_of_children, children_comment, 2)
       end)
     end
   end

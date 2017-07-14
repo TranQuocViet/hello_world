@@ -6,6 +6,7 @@ defmodule SocialWeb.Repo.Migrations.AddIndexAndTimestamp do
       add :created_time, :datetime
       add :like_count, :integer
       add :comment_count, :integer
+      add :lever, :integer
       timestamps default: "2016-01-01 00:00:01"
     end
 

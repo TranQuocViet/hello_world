@@ -85,13 +85,33 @@ defmodule SocialWeb.PostController do
 
   def get_one_post(conn, params) do
     post_id = params["post_id"]
-    posts = Repo.get(Post, post_id)
-    |> Map.take([:id, :user_id, :user_name, :message, :full_picture, :like_count, :comment_count, :link, :created_time, :tag])
+    post = Repo.get(Post, post_id)
+    |> Map.take([:id, :user_id, :user_name, :message, :attachments, :full_picture, :like_count, :comment_count, :link, :created_time, :tag])
     comments = Repo.all(from(c in Comment, where: c.post_id == ^post_id, order_by: [desc: c.created_time]))
     |> Enum.map(fn(comment) ->
-      Map.take(comment, [:id, :user_name, :user_id, :message, :attachments, :like_count, :comment_count])
+      Map.take(comment, [:id, :post_id, :parent_id, :user_name, :user_id, :lever, :message, :attachments, :like_count, :comment_count])
     end)
-    # IO.inspect post
+    # posts1 = Enum.map(posts, fn(post) ->
+    #     comment_of_post = Enum.reduce(comments, [], fn(comment, acc) ->
+    #       if comment["post_id"] == post["id"] do
+    #         List.insert_at(acc, 0, comment)
+    #       end
+    #     end)
+    #     Map.put_new(post, :comments, comment_of_post)
+    #   end)
+    comments1 = Enum.reduce(comments, [], fn(x, acc) ->
+      child_comment = Enum.reduce(comments, [], fn(y, aco) ->
+        if y["parent_id"] == x["id"] do
+          List.insert_at(aco, 0, y)
+          List.delete(comments, y)
+        end
+      end)
+      new_comment = Map.put_new(x, :child_comment, child_comment)
+      List.insert_at(acc, 0, new_comment)
+    end)
+
+    IO.inspect comments1
+
     user_id = case Mix.env() do
       :dev -> "1362834353783843"
       :prod -> "1165749846825629"
@@ -105,7 +125,7 @@ defmodule SocialWeb.PostController do
     }
     Tools.enqueue_task(update_comment)
     #đoạn này gửi sang worker để load dữ liệu mới nhất của post
-    json conn, %{sucess: true, data: %{posts: posts, comments: comments}}
+    json conn, %{sucess: true, data: %{posts: post, comments: comments}}
   end
 
   def add_tag(conn, params) do

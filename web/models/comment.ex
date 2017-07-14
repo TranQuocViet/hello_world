@@ -5,6 +5,7 @@ defmodule SocialWeb.Comment do
   schema "comments" do
     field :user_name,           :string
     field :parent_id,           :string
+    field :lever,               :integer
     field :message,             :string
     field :attachments,         :string
     field :like_count,          :integer
