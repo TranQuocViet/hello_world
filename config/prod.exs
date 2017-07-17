@@ -17,7 +17,7 @@ config :social_web, SocialWeb.Endpoint,
   root: ".",
   server: true,
   check_origin: ["//*.pages.fm"],
-  version: Mix.Project.config[:version],
+  version: Mix.Project.config[:version]
   # cache_static_manifest: "priv/static/manifest.json"
 
 # Do not print debug messages in production
