@@ -8,7 +8,7 @@ defmodule SocialWeb.PostController do
     offset = params["count"] || 0
     posts = Repo.all(from(p in Post, limit: 30, offset: ^offset , order_by: [desc: p.created_time])) # lấy posts
     |> Enum.map(fn(post) ->
-      Map.take(post, [:id, :user_id, :user_name, :message, :full_picture, :like_count, :comment_count, :link, :created_time, :tag])
+      Map.take(post, [:id, :user_id, :user_name, :message, :attachments, :full_picture, :like_count, :comment_count, :link, :created_time, :tag])
     end)
 
     posts_with_comments = Enum.into(posts, [], fn post -> #lấy comment của post
