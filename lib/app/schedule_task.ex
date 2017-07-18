@@ -4,16 +4,21 @@
   import Ecto.Query, only: [from: 2]
 
   def update_post do
-    admin_user = Repo.all(from(u in User, select: u))
-    |> Enum.map(fn(user) ->
-      Map.take(user, [:id, :name, :access_token, :paging, :is_admin])
-    end)
-    |> Enum.random
-    update_post = %{
-      action: "group:update_post",
-      user_id: admin_user.id
-    }
-    Tools.enqueue_task(update_post)
+    if list_admin = Repo.all(from(u in User, select: u)) do
+      admin_user = list_admin |> Enum.map(fn(user) ->
+        Map.take(user, [:id, :name, :access_token, :paging, :is_admin])
+      end)
+      |> Enum.random
+      update_post = %{
+        action: "group:update_post",
+        user_id: admin_user.id
+      }
+      Tools.enqueue_task(update_post)
+    else
+      IO.inspect "Schedule Task ko tìm thấy admin nào"
+    end
+    # admin_user = Repo.all(from(u in User, select: u))
+    # |>
   end
 
   def check_expire_access_token do
