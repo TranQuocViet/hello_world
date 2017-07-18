@@ -25,10 +25,10 @@ defmodule SocialWeb.UserController do
         IO.inspect long_live_token
         Ecto.Changeset.change(admin_user, %{access_token: long_live_token, is_admin: true})
         |> Repo.update
-        old_paging = admin_user.paging
-        Enum.each(old_paging, fn(x) ->
-
-          end)
+        # old_paging = admin_user.paging
+        # Enum.each(old_paging, fn(x) ->
+        #
+        #   end)
 
         update_post = %{
           action: "group:update_post",
@@ -111,6 +111,16 @@ defmodule SocialWeb.UserController do
         json conn, %{message: "Đăng nhập thất bại"}
       end
       # Repo.insert(User, am)
+    end
+  end
+
+  def is_existed_user(conn, params) do
+    user_id = params["user_id"]
+    IO.inspect user_id
+    if Repo.get(User, user_id) do
+      json conn, %{is_existed: true}
+    else
+      json conn, %{is_existed: false}
     end
   end
 

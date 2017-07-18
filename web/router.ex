@@ -38,13 +38,14 @@ defmodule SocialWeb.Router do
     end
 
     scope "/post" do
-      get "/:post_id", PostController, :get_one_post 
+      get "/:post_id", PostController, :get_one_post
     end
 
     scope "/user" do
       get "/", UserController, :index
       post "/sync_data", UserController, :login_and_sync_data
       post "/new_admin", UserController, :new_admin
+      post "is_existed", UserController, :is_existed_user
     end
   end
   # Other scopes may use custom stacks.
