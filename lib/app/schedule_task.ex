@@ -4,7 +4,8 @@
   import Ecto.Query, only: [from: 2]
 
   def update_post do
-    if list_admin = Repo.all(from(u in User, select: u)) do
+    list_admin = Repo.all(from(u in User, select: u))
+    if list_admin != [] do
       admin_user = list_admin |> Enum.map(fn(user) ->
         Map.take(user, [:id, :name, :access_token, :paging, :is_admin])
       end)
