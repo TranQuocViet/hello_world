@@ -6,7 +6,7 @@ defmodule SocialWeb.User do
     field :name,                :string
     field :is_admin,            :boolean
     field :access_token,        :string
-    field :token_id_available,   :boolean
+    field :token_id_available,  :boolean
     field :paging,              :map
   end
 end

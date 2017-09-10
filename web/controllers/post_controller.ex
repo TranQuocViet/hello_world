@@ -5,31 +5,36 @@ defmodule SocialWeb.PostController do
   import Ecto.Query, only: [from: 2]
 
   def index(conn, params) do
-    offset = params["count"] || 0
-    posts = Repo.all(from(p in Post, limit: 30, offset: ^offset , order_by: [desc: p.created_time])) # lấy posts
+    offset = params["count"]
+    tag = params["tag"] || "0"
+    posts = case tag do
+      "0" -> Repo.all(from(p in Post, limit: 30, offset: ^offset , order_by: [desc: p.created_time]))
+      "1" -> Repo.all(from(p in Post, limit: 30, offset: ^offset , order_by: [desc: p.trust_hot]))
+      _ -> Repo.all(from(p in Post, where: p.tag == ^tag, offset: ^offset , order_by: [desc: p.created_time]))
+    end
     |> Enum.map(fn(post) ->
       Map.take(post, [:id, :user_id, :user_name, :message, :attachments, :full_picture, :like_count, :comment_count, :link, :created_time, :tag])
     end)
 
-    posts_with_comments = Enum.into(posts, [], fn post -> #lấy comment của post
-
-      post_id = post.id
-      comments = Repo.all(from(c in Comment, where: c.post_id == ^post_id, limit: 5))
-      |> Enum.map(fn comment ->
-        content = Map.take(comment, [:id, :user_id, :user_name, :message])
-        comment_id = comment.id
-        child_comments = Repo.all(from(c in Comment, where: c.parent_id == ^comment_id, limit: 2))
-        |> Enum.map(fn child_comment ->
-            Map.take(child_comment, [:id, :user_id, :user_name, :message])
-          end)
-        %{content: content, child_comment: child_comments}
-       end)
-
-      %{post: post, comments: comments}
-    end)
+    # posts_with_comments = Enum.into(posts, [], fn post -> #lấy comment của post
+    #
+    #   post_id = post.id
+    #   comments = Repo.all(from(c in Comment, where: c.post_id == ^post_id, limit: 5))
+    #   |> Enum.map(fn comment ->
+    #     content = Map.take(comment, [:id, :user_id, :user_name, :message])
+    #     comment_id = comment.id
+    #     child_comments = Repo.all(from(c in Comment, where: c.parent_id == ^comment_id, limit: 2))
+    #     |> Enum.map(fn child_comment ->
+    #         Map.take(child_comment, [:id, :user_id, :user_name, :message])
+    #       end)
+    #     %{content: content, child_comment: child_comments}
+    #    end)
+    #
+    #   %{post: post, comments: comments}
+    # end)
 
     # data = %{post: post, %{comment: comment}}
-    json conn, %{success: true, data: posts_with_comments}
+    json conn, %{success: true, data: posts}
   end
 
   def get_comment(conn, params) do
@@ -89,7 +94,7 @@ defmodule SocialWeb.PostController do
     |> Map.take([:id, :user_id, :user_name, :message, :attachments, :full_picture, :like_count, :comment_count, :link, :created_time, :tag])
     comments = Repo.all(from(c in Comment, where: c.post_id == ^post_id, order_by: [desc: c.created_time]))
     |> Enum.map(fn(comment) ->
-      Map.take(comment, [:id, :post_id, :parent_id, :user_name, :user_id, :lever, :message, :attachments, :like_count, :comment_count])
+      Map.take(comment, [:id, :post_id, :parent_id, :user_name, :created_time, :user_id, :lever, :message, :attachments, :like_count, :comment_count])
     end)
     # posts1 = Enum.map(posts, fn(post) ->
     #     comment_of_post = Enum.reduce(comments, [], fn(comment, acc) ->

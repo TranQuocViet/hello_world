@@ -7,6 +7,7 @@ defmodule SocialWeb.Worker.PostWorker do
   @comment_fields "id,message,from,attachment,comment_count,created_time,comments{id,message,attachment,from,like_count,created_time}"
   @group_id System.get_env("GROUP_ID") || "101895420341772"
   def update_for_post(obj) do
+    IO.inspect "sdfsfs"
     %{
       "user_id" => user_id,
       "post_id" => post_id

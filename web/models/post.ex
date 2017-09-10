@@ -23,3 +23,13 @@ defmodule SocialWeb.Post do
     timestamps
   end
 end
+
+### about tag  ###
+# new -> 0
+# hot -> 1
+# general -> 2
+# anser & question -> 3
+# buy sell -> 4
+# share community -> 5
+# support pancake -> 6
+####################

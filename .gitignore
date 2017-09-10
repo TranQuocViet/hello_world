@@ -26,3 +26,5 @@ erl_crash.dump
 /docker-compose.yml
 /.dev.database.env
 /docker
+##
+/rel
