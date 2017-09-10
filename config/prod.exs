@@ -29,18 +29,11 @@ config :social_web, ecto_repos: [
 
 config :social_web, SocialWeb.Repo,
 adapter: Ecto.Adapters.Postgres,
-# username: System.get_env("DB_USERNAME"),
-# password: System.get_env("DB_PASSWORD"),
-# database: System.get_env("DB_NAME"),
-# hostname: System.get_env("DB_MASTER"),
-# pool_size: 50
-
-username: "viet911",
-password: "tranquocviet",
-database: "social_web",
-hostname: "localhost",
-port: 6432,
-pool_size: 10
+username: System.get_env("DB_USERNAME"),
+password: System.get_env("DB_PASSWORD"),
+database: System.get_env("DB_NAME"),
+hostname: System.get_env("DB_MASTER"),
+pool_size: 50
 
 # ## SSL Support
 #
